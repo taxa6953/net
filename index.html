@@ -1,41 +1,21 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>زومیت کلون</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>صفحه رمزگذاری شده</title>
 </head>
 <body>
-    <header>
-        <h1>زومیت کلون</h1>
-        <nav>
-            <ul>
-                <li><a href="#">خانه</a></li>
-                <li><a href="#">تکنولوژی</a></li>
-                <li><a href="#">موبایل</a></li>
-                <li><a href="#">بررسی‌ها</a></li>
-            </ul>
-        </nav>
-    </header>
+  <script>
+    // محتوای رمزگذاری‌شده (Base64)
+    const encrypted = "PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjogY2VudGVyOyBtYXJnaW46IDUw
+    cHggYXV0bzsgaGVpZ2h0OiAxMDBweDsnPjxoMSDZiNin2YXYqSDYp9mG2KfZhg==
+    </h1PjwvZGl2Pg==";
 
-    <main>
-        <article>
-            <img src="https://via.placeholder.com/600x300" alt="خبر اول">
-            <h2>عنوان خبر اول</h2>
-            <p>این یک متن نمونه برای خبر اول است. شما می‌توانید این متن را ویرایش کرده و خبرهای خودتان را جایگزین کنید.</p>
-        </article>
-        <article>
-            <img src="https://via.placeholder.com/600x300" alt="خبر دوم">
-            <h2>عنوان خبر دوم</h2>
-            <p>در این بخش می‌توانید محتوای خبری را قرار دهید و ظاهر آن را به راحتی ویرایش کنید.</p>
-        </article>
-    </main>
+    // رمزگشایی با تابع atob
+    const decoded = atob(encrypted);
 
-    <footer>
-        <p>تمامی حقوق محفوظ است &copy; 2025</p>
-    </footer>
-
-    <script src="script.js"></script>
+    // نوشتن محتوای رمزگشایی‌شده در صفحه
+    document.write(decoded);
+  </script>
 </body>
 </html>
