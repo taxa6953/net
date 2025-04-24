@@ -1,21 +1,80 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>صفحه رمزگذاری شده</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سفارشی‌سازی کارت</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Vazir', sans-serif; }
+    .content-text { white-space: normal; word-wrap: break-word; overflow-wrap: break-word; line-height: 2; }
+    .editor-btn { @apply bg-gray-200 px-2 py-1 rounded hover:bg-gray-300 mx-1; }
+  </style>
 </head>
-<body>
+<body class="bg-white text-gray-800 min-h-screen p-6">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- فرم و ابزارها -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">تنظیمات کارت</h2>
+      <label class="block mb-2">عنوان:</label>
+      <input type="text" id="cardTitle" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: مقیاس بزرگی MW">
+
+      <label class="block mb-2">آدرس تصویر:</label>
+      <input type="text" id="cardImage" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="../image-card7.png">
+
+      <label class="block mb-2">محتوا:</label>
+      <div class="flex flex-wrap mb-2">
+        <button onclick="formatText('bold')" class="editor-btn">بولد</button>
+        <button onclick="formatText('underline')" class="editor-btn">زیرخط</button>
+        <button onclick="formatText('increase')" class="editor-btn">بزرگ‌تر</button>
+      </div>
+      <div id="editor" contenteditable="true" class="border border-gray-300 rounded p-3 min-h-[200px] bg-white"></div>
+    </div>
+
+    <!-- پیش‌نمایش -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">پیش‌نمایش</h2>
+      <div class="bg-gray-200 rounded-3xl shadow-2xl overflow-hidden">
+        <div class="aspect-w-16 aspect-h-9">
+          <img id="previewImage" src="../image-card7.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl">
+        </div>
+        <div class="p-6">
+          <h1 id="previewTitle" class="text-2xl font-bold text-gray-900 mb-3">مقیاس بزرگی MW</h1>
+          <div id="previewContent" class="text-sm text-gray-700 content-text"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // محتوای رمزگذاری‌شده (Base64)
-    const encrypted = "PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjogY2VudGVyOyBtYXJnaW46IDUw
-    cHggYXV0bzsgaGVpZ2h0OiAxMDBweDsnPjxoMSDZiNin2YXYqSDYp9mG2KfZhg==
-    </h1PjwvZGl2Pg==";
+    const editor = document.getElementById('editor');
+    const titleInput = document.getElementById('cardTitle');
+    const imageInput = document.getElementById('cardImage');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewImage = document.getElementById('previewImage');
+    const previewContent = document.getElementById('previewContent');
 
-    // رمزگشایی با تابع atob
-    const decoded = atob(encrypted);
+    titleInput.addEventListener('input', () => {
+      previewTitle.textContent = titleInput.value || 'مقیاس بزرگی MW';
+    });
 
-    // نوشتن محتوای رمزگشایی‌شده در صفحه
-    document.write(decoded);
+    imageInput.addEventListener('input', () => {
+      previewImage.src = imageInput.value || '../image-card7.png';
+    });
+
+    editor.addEventListener('input', () => {
+      previewContent.innerHTML = editor.innerHTML;
+    });
+
+    function formatText(command) {
+      if (command === 'increase') {
+        document.execCommand('fontSize', false, '5');
+      } else {
+        document.execCommand(command);
+      }
+    }
   </script>
 </body>
 </html>
