@@ -97,7 +97,7 @@
           <button onclick="formatText('underline')" class="editor-btn">زیرخط</button>
           <button onclick="formatText('increase')" class="editor-btn">بزرگ‌تر</button>
         </div>
-        <div id="editor" contenteditable="true" class="border border-gray-300 rounded p-3 min-h-[200px] bg-white"></div>
+        <div id="editor" class="border border-gray-300 rounded p-3 min-h-[200px] bg-white"></div>
 
         <button onclick="downloadHTML()" class="download-btn mt-6">دانلود HTML</button>
       </div>
@@ -209,5 +209,55 @@
       URL.revokeObjectURL(url);
     }
   </script>
+
+  <!-- CKEditor 5 Classic Build -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#editor'), {
+        language: 'fa',
+        toolbar: [
+          'heading', '|',
+          'bold', 'italic', 'underline', '|',
+          'alignment:left', 'alignment:center', 'alignment:right', '|',
+          'fontSize', 'fontFamily', 'highlight', '|',
+          'bulletedList', 'numberedList', '|',
+          'insertTable', 'blockQuote', '|',
+          'undo', 'redo'
+        ],
+        fontFamily: {
+          options: [
+            'default',
+            'Vazir',
+            'Shabnam',
+            'Tahoma',
+            'IranNastaliq'
+          ]
+        },
+        highlight: {
+          options: [
+            { model: 'yellowMarker', class: 'marker-yellow', title: 'زرد', color: 'yellow', type: 'marker' },
+            { model: 'greenMarker', class: 'marker-green', title: 'سبز', color: 'lightgreen', type: 'marker' },
+            { model: 'pinkMarker', class: 'marker-pink', title: 'صورتی', color: 'pink', type: 'marker' }
+          ]
+        },
+        alignment: {
+          options: [ 'right', 'center', 'left', 'justify' ]
+        },
+        table: {
+          contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties' ]
+        }
+      })
+      .then(editor => {
+        window.editorInstance = editor;
+        editor.model.document.on('change:data', () => {
+          document.getElementById('previewContent').innerHTML = editor.getData();
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  </script>
+
 </body>
 </html>
