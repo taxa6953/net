@@ -1,156 +1,85 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ویرایش کارت</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ویرایشگر فارسی با CKEditor 5</title>
   <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
   <link href="https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.css" rel="stylesheet">
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <style>
     body {
       font-family: 'Vazir', sans-serif;
-    }
-
-    #editor {
+      background-color: #f9f9f9;
+      padding: 2rem;
       direction: rtl;
-      text-align: right;
-      line-height: 2;
+    }
+    .editor-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .editor, .preview {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .preview {
+      white-space: pre-wrap;
+    }
+    .download-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 9999px;
       font-size: 1rem;
-      background-color: #fffbea;
-      transition: all 0.3s ease-in-out;
-      min-height: 200px;
+      cursor: pointer;
+    }
+    .download-btn:hover {
+      background-color: #45a049;
     }
 
-    .preview-content table {
+    .preview table {
       width: 100%;
-      margin: 1rem 0;
-      border: 1px solid #ccc;
+      margin-top: 1rem;
       border-collapse: collapse;
     }
-
-    .preview-content td,
-    .preview-content th {
-      padding: 0.5rem;
+    .preview th, .preview td {
       border: 1px solid #ccc;
+      padding: 0.5rem;
     }
-
-    .ck-editor__editable_inline {
-      min-height: 200px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #f1f1f1;
-      border-top: 2px solid #ddd;
-    }
-  </style>
-</head>
-<body class="bg-white text-gray-800 min-h-screen p-6">
-
-  <div class="w-full flex justify-start px-4 mb-6">
-    <a href="../index.html" class="inline-flex items-center bg-gray-200 hover:bg-gray-300 transition px-4 py-2 rounded-full shadow-md text-sm">
-      <img src="../back.gif" alt="بازگشت" class="w-4 h-4 ml-2">
-      بازگشت
-    </a>
-  </div>
-
-  <div class="card-container max-w-3xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- فرم تنظیمات -->
-      <div>
-        <h2 class="text-xl font-bold mb-4">تنظیمات کارت</h2>
-        <label class="block mb-2">عنوان:</label>
-        <input type="text" id="titleInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="عنوان کارت">
-
-        <label class="block mb-2">شماره تصویر:</label>
-        <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: 9" min="1">
-
-        <label class="block mb-2">محتوا:</label>
-        <div id="editor"></div>
-
-        <button onclick="downloadHTML()" class="mt-6 bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700">
-          دانلود HTML
-        </button>
-      </div>
-
-      <!-- پیش‌نمایش کارت -->
-      <div class="preview-card bg-gray-100 rounded-xl shadow-md">
-        <img id="previewImage" class="preview-image" src="../image-card1.png" alt="تصویر کارت" style="width: 100%; height: 250px; object-fit: cover;">
-        <div class="p-4">
-          <h1 id="previewTitle" class="text-xl font-bold mb-2">عنوان کارت</h1>
-          <div id="previewContent" class="preview-content text-gray-700 leading-loose"></div>
-        </div>
-        <footer>
-          طراح وب‌سایت: مهندس طاها سرگزی
-        </footer>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let editorInstance;
-
-    document.getElementById('titleInput').addEventListener('input', e => {
-      document.getElementById('previewTitle').textContent = e.target.value || 'عنوان کارت';
-    });
-
-    document.getElementById('imageNumber').addEventListener('input', e => {
-      document.getElementById('previewImage').src = `../image-card${e.target.value || 1}.png`;
-    });
-
-    function downloadHTML() {
-      const title = document.getElementById('titleInput').value || 'عنوان کارت';
-      const imageNum = document.getElementById('imageNumber').value || 1;
-      const content = editorInstance.getData();
-
-      const fullHTML = `
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <title>${title}</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
-  <style>
-    body { font-family: 'Vazir', sans-serif; direction: rtl; text-align: right; padding: 20px; }
-    table { width: 100%; border: 1px solid #ccc; border-collapse: collapse; margin-top: 1rem; }
-    td, th { padding: 0.5rem; border: 1px solid #ccc; }
   </style>
 </head>
 <body>
-  <h1>${title}</h1>
-  <img src="../image-card${imageNum}.png" alt="تصویر کارت" style="max-width:100%; height:auto;">
-  <div>${content}</div>
-  <footer style="margin-top: 2rem; text-align: center;">طراح وب‌سایت: مهندس طاها سرگزی</footer>
-</body>
-</html>`;
 
-      const blob = new Blob([fullHTML], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${title.replace(/\s+/g, '_')}.html`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+  <div class="editor-container">
+    <div class="editor">
+      <h2>ویرایشگر محتوا</h2>
+      <div id="editor"></div>
+    </div>
 
+    <div class="preview">
+      <h2>پیش‌نمایش</h2>
+      <div id="previewContent"></div>
+    </div>
+
+    <button class="download-btn" onclick="downloadHTML()">دانلود HTML</button>
+  </div>
+
+  <!-- CKEditor 5 Classic Build -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+  <script>
     ClassicEditor
       .create(document.querySelector('#editor'), {
         language: 'fa',
         toolbar: [
-          'bold', 'italic', 'underline',
-          '|',
-          'alignment:left', 'alignment:center', 'alignment:right',
-          '|',
-          'fontSize', 'fontFamily',
-          '|',
-          'bulletedList', 'numberedList',
-          '|',
-          'insertTable', 'highlight',
-          '|',
+          'heading', '|',
+          'bold', 'italic', 'underline', '|',
+          'alignment:left', 'alignment:center', 'alignment:right', '|',
+          'fontSize', 'fontFamily', 'highlight', '|',
+          'bulletedList', 'numberedList', '|',
+          'insertTable', 'blockQuote', '|',
           'undo', 'redo'
         ],
         fontFamily: {
@@ -168,15 +97,62 @@
             { model: 'greenMarker', class: 'marker-green', title: 'سبز', color: 'lightgreen', type: 'marker' },
             { model: 'pinkMarker', class: 'marker-pink', title: 'صورتی', color: 'pink', type: 'marker' }
           ]
+        },
+        alignment: {
+          options: [ 'right', 'center', 'left', 'justify' ]
+        },
+        table: {
+          contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties' ]
         }
       })
       .then(editor => {
-        editorInstance = editor;
+        window.editorInstance = editor;
         editor.model.document.on('change:data', () => {
           document.getElementById('previewContent').innerHTML = editor.getData();
         });
       })
-      .catch(err => console.error(err));
+      .catch(error => {
+        console.error(error);
+      });
+
+    function downloadHTML() {
+      const content = window.editorInstance.getData();
+      const fullHTML = `
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>محتوای ویرایش‌شده</title>
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Vazir', sans-serif;
+      direction: rtl;
+      padding: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  ${content}
+</body>
+</html>`;
+      const blob = new Blob([fullHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'content.html';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
 </html>
