@@ -91,11 +91,29 @@
   <script>
     let editorInstance;
 
-    ClassicEditor
-      .create(document.querySelector('#editor'), {
-        language: 'fa',
-        toolbar: ['bold', 'italic', 'underline', '|', 'fontSize', 'alignment', '|', 'insertTable', 'undo', 'redo']
-      })
+   ClassicEditor
+  .create(document.querySelector('#editor'), {
+    language: 'fa',
+    toolbar: [
+      'bold', 'italic', 'underline',
+      '|',
+      'fontSize', 'alignment',
+      '|',
+      'insertTable', 'bulletedList', 'numberedList',
+      '|',
+      'undo', 'redo'
+    ]
+  })
+  .then(editor => {
+    editorInstance = editor;
+    editor.model.document.on('change:data', () => {
+      document.getElementById('previewContent').innerHTML = editorInstance.getData();
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
       .then(editor => {
         editorInstance = editor;
         editor.model.document.on('change:data', () => {
