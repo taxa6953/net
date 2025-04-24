@@ -91,30 +91,11 @@
   <script>
     let editorInstance;
 
-  ClassicEditor
-  .create(document.querySelector('#editor'), {
-    language: 'fa',
-    toolbar: [
-      'heading', '|',
-      'bold', 'italic', 'underline', '|',
-      'fontSize', 'alignment', '|',
-      'insertTable', 'horizontalLine', '|',
-      'undo', 'redo'
-    ],
-    alignment: {
-      options: [ 'right', 'center', 'left', 'justify' ]
-    }
-  })
-  .then(editor => {
-    editorInstance = editor;
-    editor.model.document.on('change:data', () => {
-      document.getElementById('previewContent').innerHTML = editor.getData();
-    });
-  })
-  .catch(error => {
-    console.error(error);
-  });
-
+    ClassicEditor
+      .create(document.querySelector('#editor'), {
+        language: 'fa',
+        toolbar: ['bold', 'italic', 'underline', '|', 'fontSize', 'alignment', '|', 'insertTable', 'undo', 'redo']
+      })
       .then(editor => {
         editorInstance = editor;
         editor.model.document.on('change:data', () => {
@@ -173,7 +154,7 @@
 </head>
 <body class="bg-white text-gray-800 min-h-screen p-4">
   <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
-    <img src="../image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-64 object-cover " />
+    <img src="../image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-64 object-cover" />
     <div class="p-6">
       <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
       <div class="preview-content text-gray-700 leading-loose">
