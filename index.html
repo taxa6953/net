@@ -1,89 +1,66 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ویرایش کارت</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   <style>
     body { font-family: 'Vazir', sans-serif; }
-    .editor-btn { @apply bg-gray-200 px-2 py-1 rounded hover:bg-gray-300 mx-1; }
+    footer { text-align: center; padding: 10px; background-color: #f1f1f1; margin-top: 50px; }
+    .editor-card { background-color: #f3f4f6; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
   </style>
 </head>
-<body class="bg-white text-gray-800 min-h-screen p-6">
+<body class="bg-gray-100 p-6">
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- فرم -->
-    <div>
-      <h2 class="text-xl font-bold mb-4">تنظیمات کارت</h2>
-      <label class="block mb-2">عنوان:</label>
-      <input type="text" id="titleInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="عنوان کارت">
+  <div class="grid md:grid-cols-2 gap-6">
+    <!-- فرم ویرایش -->
+    <div class="editor-card">
+      <h2 class="text-xl font-bold mb-4 text-gray-800">ویرایش محتوا</h2>
+      
+      <label class="block mb-2 font-semibold">عنوان:</label>
+      <input id="title" type="text" class="w-full p-2 mb-4 rounded border border-gray-300" placeholder="مثلاً تئوری زمین‌ساخت">
 
-      <label class="block mb-2">آدرس تصویر:</label>
-      <input type="text" id="imageInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: ../image-card9.png">
+      <label class="block mb-2 font-semibold">آدرس تصویر:</label>
+      <input id="image" type="text" class="w-full p-2 mb-4 rounded border border-gray-300" placeholder="../image-card9.png">
 
-      <label class="block mb-2">محتوا:</label>
-      <div class="flex flex-wrap mb-2">
-        <button onclick="formatText('bold')" class="editor-btn">بولد</button>
-        <button onclick="formatText('underline')" class="editor-btn">زیرخط</button>
-        <button onclick="formatText('increase')" class="editor-btn">بزرگ‌تر</button>
-      </div>
-      <div id="editor" contenteditable="true" class="border border-gray-300 rounded p-3 min-h-[200px] bg-white"></div>
+      <label class="block mb-2 font-semibold">محتوا:</label>
+      <textarea id="editor" class="w-full"></textarea>
 
-      <button onclick="downloadHTML()" class="mt-6 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow">دانلود HTML</button>
+      <button onclick="generateHTML()" class="mt-6 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all">
+        ساخت و دانلود HTML
+      </button>
     </div>
 
     <!-- پیش‌نمایش -->
-    <div>
-      <h2 class="text-xl font-bold mb-4">پیش‌نمایش</h2>
-      <div class="bg-gray-200 rounded-3xl shadow-2xl overflow-hidden max-w-xl mx-auto">
-        <div class="aspect-w-16 aspect-h-9">
-          <img id="previewImage" src="../image-card9.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl">
-        </div>
-        <div class="p-6">
-          <h1 id="previewTitle" class="text-2xl font-bold text-gray-900 mb-3">عنوان کارت</h1>
-          <div id="previewContent" class="text-sm text-gray-700 leading-loose space-y-4"></div>
-        </div>
-      </div>
+    <div id="preview" class="bg-white rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
+      <!-- این بخش توسط جاوااسکریپت پر میشه -->
     </div>
   </div>
 
+  <footer class="mt-12">
+    طراح وب‌سایت: مهندس طاها سرگزی
+  </footer>
+
   <script>
-    const titleInput = document.getElementById('titleInput');
-    const imageInput = document.getElementById('imageInput');
-    const editor = document.getElementById('editor');
-
-    const previewTitle = document.getElementById('previewTitle');
-    const previewImage = document.getElementById('previewImage');
-    const previewContent = document.getElementById('previewContent');
-
-    titleInput.addEventListener('input', () => {
-      previewTitle.textContent = titleInput.value || 'عنوان کارت';
+    tinymce.init({
+      selector: '#editor',
+      language: 'fa',
+      directionality: 'rtl',
+      plugins: 'lists link image code textcolor',
+      toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | forecolor backcolor | bullist numlist | removeformat',
+      height: 300,
+      content_style: "body { font-family: Vazir, sans-serif; line-height: 2; }"
     });
 
-    imageInput.addEventListener('input', () => {
-      previewImage.src = imageInput.value || '../image-card9.png';
-    });
+    function generateHTML() {
+      const title = document.getElementById('title').value;
+      const image = document.getElementById('image').value;
+      const content = tinymce.get('editor').getContent();
 
-    editor.addEventListener('input', () => {
-      previewContent.innerHTML = editor.innerHTML;
-    });
-
-    function formatText(command) {
-      if (command === 'increase') {
-        document.execCommand('fontSize', false, '5');
-      } else {
-        document.execCommand(command);
-      }
-    }
-
-    function downloadHTML() {
-      const title = titleInput.value || 'عنوان کارت';
-      const image = imageInput.value || '../image-card9.png';
-      const content = editor.innerHTML;
-
-      const fullHTML = `
+      const html = `
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -93,22 +70,14 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Vazir', sans-serif;
-    }
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #f1f1f1;
-      margin-top: 50px;
-    }
+    body { font-family: 'Vazir', sans-serif; }
+    footer { text-align: center; padding: 10px; background-color: #f1f1f1; margin-top: 50px; }
   </style>
 </head>
 <body class="bg-white text-gray-800 min-h-screen p-4">
   <div class="w-full flex justify-start px-4 mb-6">
     <a href="../index.html" class="inline-flex items-center bg-gray-200 hover:bg-gray-300 transition px-4 py-2 rounded-full shadow-md text-sm">
-      <img src="../back.gif" alt="بازگشت" class="w-4 h-4 ml-2">
-      بازگشت
+      <img src="../back.gif" alt="بازگشت" class="w-4 h-4 ml-2"> بازگشت
     </a>
   </div>
 
@@ -118,26 +87,22 @@
     </div>
     <div class="p-6">
       <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
-      <div class="text-sm text-gray-700 leading-loose space-y-4">
-        ${content}
-      </div>
+      <div class="text-sm text-gray-700 leading-loose space-y-4">${content}</div>
     </div>
   </div>
 
-  <footer>
-    طراح وب‌سایت: مهندس طاها سرگزی
-  </footer>
+  <footer>طراح وب‌سایت: مهندس طاها سرگزی</footer>
 </body>
-</html>
-      `;
+</html>`;
 
-      const blob = new Blob([fullHTML], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${title.replace(/\s+/g, '_')}.html`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const blob = new Blob([html], {type: "text/html"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${title}.html`;
+      link.click();
+
+      // نمایش پیش‌نمایش همزمان
+      document.getElementById('preview').innerHTML = html;
     }
   </script>
 </body>
