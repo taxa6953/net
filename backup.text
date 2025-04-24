@@ -10,12 +10,6 @@
     body {
       font-family: 'Vazir', sans-serif;
     }
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #f1f1f1;
-      margin-top: 50px;
-    }
     .card-container {
       background-color: #f9f9f9;
       border-radius: 1.5rem;
@@ -38,7 +32,7 @@
       background-color: #45a049;
     }
     .preview-card {
-      max-width: 400px; /* تنظیم عرض کارت */
+      max-width: 400px;
       width: 100%;
       background-color: #f1f1f1;
       border-radius: 20px;
@@ -48,7 +42,7 @@
     }
     .preview-image {
       width: 100%;
-      height: 250px; /* تنظیم ارتفاع مناسب برای تصویر */
+      height: 250px;
       object-fit: cover;
       border-bottom: 2px solid #ddd;
     }
@@ -64,6 +58,14 @@
       padding: 0 1rem 1rem;
       color: #555;
       line-height: 1.6;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f1f1f1;
+      border-top: 2px solid #ddd;
     }
   </style>
 </head>
@@ -86,8 +88,8 @@
         <label class="block mb-2">عنوان:</label>
         <input type="text" id="titleInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="عنوان کارت">
 
-        <label class="block mb-2">آدرس تصویر:</label>
-        <input type="text" id="imageInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: ../image-card9.png">
+        <label class="block mb-2">شماره تصویر:</label>
+        <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: 9" min="1">
 
         <label class="block mb-2">محتوا:</label>
         <div class="flex flex-wrap mb-2">
@@ -102,21 +104,22 @@
 
       <!-- پیش‌نمایش کارت -->
       <div class="preview-card">
-        <img id="previewImage" class="preview-image" src="../image-card9.png" alt="تصویر کارت">
-        <div class="preview-title" id="previewTitle">عنوان کارت</div>
-        <div id="previewContent" class="preview-content"></div>
+        <img id="previewImage" class="preview-image" src="../image-card1.png" alt="تصویر کارت">
+        <div class="p-4">
+          <h1 id="previewTitle" class="preview-title">عنوان کارت</h1>
+          <div id="previewContent" class="preview-content"></div>
+        </div>
+        <!-- فوتر متصل به کارت -->
+        <footer>
+          طراح وب‌سایت: مهندس طاها سرگزی
+        </footer>
       </div>
     </div>
   </div>
 
-  <!-- فوتر -->
-  <footer>
-    طراح وب‌سایت: مهندس طاها سرگزی
-  </footer>
-
   <script>
     const titleInput = document.getElementById('titleInput');
-    const imageInput = document.getElementById('imageInput');
+    const imageNumber = document.getElementById('imageNumber');
     const editor = document.getElementById('editor');
 
     const previewTitle = document.getElementById('previewTitle');
@@ -127,8 +130,8 @@
       previewTitle.textContent = titleInput.value || 'عنوان کارت';
     });
 
-    imageInput.addEventListener('input', () => {
-      previewImage.src = imageInput.value || '../image-card9.png';
+    imageNumber.addEventListener('input', () => {
+      previewImage.src = `../image-card${imageNumber.value || 1}.png`;
     });
 
     editor.addEventListener('input', () => {
@@ -145,7 +148,7 @@
 
     function downloadHTML() {
       const title = titleInput.value || 'عنوان کارت';
-      const image = imageInput.value || '../image-card9.png';
+      const imageNum = imageNumber.value || 1;
       const content = editor.innerHTML;
 
       const fullHTML = `
@@ -170,6 +173,7 @@
   </style>
 </head>
 <body class="bg-white text-gray-800 min-h-screen p-4">
+
   <div class="w-full flex justify-start px-4 mb-6">
     <a href="../index.html" class="inline-flex items-center bg-gray-200 hover:bg-gray-300 transition px-4 py-2 rounded-full shadow-md text-sm">
       <img src="../back.gif" alt="بازگشت" class="w-4 h-4 ml-2">
@@ -179,7 +183,7 @@
 
   <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
     <div class="aspect-w-16 aspect-h-9">
-      <img src="${image}" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl">
+      <img src="../image-card${imageNum}.png" alt="${imageNum}تصویر کارت" class="w-full h-full object-cover rounded-t-3xl">
     </div>
     <div class="p-6">
       <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
@@ -187,11 +191,11 @@
         ${content}
       </div>
     </div>
+    <footer>
+      طراح وب‌سایت: مهندس طاها سرگزی
+    </footer>
   </div>
 
-  <footer>
-    طراح وب‌سایت: مهندس طاها سرگزی
-  </footer>
 </body>
 </html>
       `;
