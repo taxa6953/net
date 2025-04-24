@@ -6,9 +6,10 @@
   <title>ویرایش کارت</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet"/>
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <style>
-    body { font-family: 'Vazir', sans-serif; }
+    body {
+      font-family: 'Vazir', sans-serif;
+    }
     .card-container {
       background-color: #f9f9f9;
       border-radius: 1.5rem;
@@ -29,6 +30,7 @@
     }
     .preview-card {
       max-width: 400px;
+      width: 100%;
       background-color: #f1f1f1;
       border-radius: 20px;
       overflow: hidden;
@@ -87,7 +89,9 @@
         <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: 9" min="1">
 
         <label class="block mb-2">محتوا:</label>
-        <textarea id="editor" class="w-full min-h-[200px] bg-white border border-gray-300 rounded"></textarea>
+        <div id="editorContainer">
+          <textarea id="editor"></textarea>
+        </div>
 
         <button onclick="downloadHTML()" class="download-btn mt-6">دانلود HTML</button>
       </div>
@@ -106,6 +110,8 @@
     </div>
   </div>
 
+  <!-- CKEditor -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <script>
     let editorInstance;
 
@@ -114,11 +120,14 @@
         language: 'fa',
         toolbar: [
           'heading', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'link', 'bulletedList', 'numberedList', '|',
-          'alignment', 'undo', 'redo', '|',
-          'blockQuote', 'insertTable', 'mediaEmbed'
-        ]
+          'bold', 'italic', 'underline', '|',
+          'alignment:left', 'alignment:center', 'alignment:right', '|',
+          'fontSize', 'fontColor', '|',
+          'insertTable', 'undo', 'redo'
+        ],
+        table: {
+          contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+        }
       })
       .then(editor => {
         editorInstance = editor;
@@ -130,39 +139,41 @@
         console.error(error);
       });
 
-    document.getElementById('titleInput').addEventListener('input', () => {
-      document.getElementById('previewTitle').textContent = titleInput.value || 'عنوان کارت';
+    document.getElementById('titleInput').addEventListener('input', (e) => {
+      document.getElementById('previewTitle').textContent = e.target.value || 'عنوان کارت';
     });
 
-    document.getElementById('imageNumber').addEventListener('input', () => {
-      document.getElementById('previewImage').src = `../image-card${imageNumber.value || 1}.png`;
+    document.getElementById('imageNumber').addEventListener('input', (e) => {
+      document.getElementById('previewImage').src = `../image-card${e.target.value || 1}.png`;
     });
 
     function downloadHTML() {
       const title = document.getElementById('titleInput').value || 'عنوان کارت';
-      const image = `../image-card${document.getElementById('imageNumber').value || 1}.png`;
+      const imageNum = document.getElementById('imageNumber').value || 1;
       const content = editorInstance.getData();
 
       const fullHTML = `
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${title}</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
+  <style>
+    body { font-family: 'Vazir', sans-serif; }
+    footer { text-align: center; padding: 10px; background-color: #f1f1f1; margin-top: 50px; }
+  </style>
 </head>
 <body class="bg-white text-gray-800 min-h-screen p-4">
   <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
-    <img src="${image}" alt="تصویر کارت" class="w-full h-64 object-cover rounded-t-3xl">
+    <img src="../image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-64 object-cover rounded-t-3xl">
     <div class="p-6">
       <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
       <div class="text-sm text-gray-700 leading-loose space-y-4">${content}</div>
     </div>
-    <footer>
-      طراح وب‌سایت: مهندس طاها سرگزی
-    </footer>
+    <footer>طراح وب‌سایت: مهندس طاها سرگزی</footer>
   </div>
 </body>
 </html>
