@@ -69,7 +69,7 @@
         <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: 9" min="1" />
 
         <label class="block mb-2">محتوا:</label>
-        <div id="editor" class="mb-4"></div>
+        <div id="editor" class="mb-4"> </div>
 
         <button onclick="downloadHTML()" class="download-btn mt-4">دانلود HTML</button>
       </div>
@@ -92,22 +92,22 @@
   <script>
     let editorInstance;
 ClassicEditor
-    .create( document.querySelector( '#editor' ), {
-    language:{
-        ui: 'fa',
-       content: 'fa'
-                    )  
+  .create(document.querySelector('#editor'), {
+    language: {
+      ui: 'fa',
+      content: 'fa'
     }
-    
-        .then(editor => {
-        editorInstance = editor;
-        editor.model.document.on('change:data', () => {
-          document.getElementById('previewContent').innerHTML = editorInstance.getData();
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  })
+  .then(editor => {
+    editorInstance = editor;
+    editor.model.document.on('change:data', () => {
+      document.getElementById('previewContent').innerHTML = editorInstance.getData();
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
 
     
 
