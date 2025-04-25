@@ -90,21 +90,21 @@
 
   <script>
     let editorInstance;
+ClassicEditor
+    .create( document.querySelector( '#editor' ), {
+        language: {
+            ui: 'fa',
+            content: 'fa'
+        }
+    } )
+    .then( editor => {
+        window.editor = editor;
+    } )
+    .catch( err => {
+        console.error( err.stack );
+    } );
 
-    ClassicEditor
-      .create(document.querySelector('#editor'), {
-        language: 'fa',
-        toolbar:['bold', 'italic', 'underline', '|','fontSize', 'alignment', '|','insertTable', 'horizontalLine', '|','undo', 'redo']
-      })
-      .then(editor => {
-        editorInstance = editor;
-        editor.model.document.on('change:data', () => {
-          document.getElementById('previewContent').innerHTML = editorInstance.getData();
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    
 
     const titleInput = document.getElementById('titleInput');
     const imageNumber = document.getElementById('imageNumber');
