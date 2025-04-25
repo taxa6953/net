@@ -96,14 +96,14 @@ ClassicEditor
     language: {
   ui: 'fa',
   content: 'fa'
-},
-languageTool: {
+)
+    }
+  languageTool: {
   languages: [
     { title: 'فارسی', languageCode: 'fa' },
     { title: 'English', languageCode: 'en' }
   ]
-}
-
+  }  
         .then(editor => {
         editorInstance = editor;
         editor.model.document.on('change:data', () => {
