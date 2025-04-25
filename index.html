@@ -95,7 +95,10 @@
       .create(document.querySelector('#editor'), {
         language: 'fa',
         toolbar:['bold', 'italic', 'underline', '|','fontSize', 'alignment', '|','insertTable', 'horizontalLine', '|','undo', 'redo']
-      })
+      }
+      alignment: {
+      options: [ 'right', 'center', 'left', 'justify' ]
+    })
       .then(editor => {
         editorInstance = editor;
         editor.model.document.on('change:data', () => {
