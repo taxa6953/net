@@ -98,13 +98,15 @@ ClassicEditor
             content: 'fa'
         }
     } )
-    .then( editor => {
-        window.editor = editor;
-      editorInstance = editor;
-    } )
-    .catch( err => {
-        console.error( err.stack );
-    } );
+        .then(editor => {
+        editorInstance = editor;
+        editor.model.document.on('change:data', () => {
+          document.getElementById('previewContent').innerHTML = editorInstance.getData();
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
 
     
 
