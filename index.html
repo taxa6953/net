@@ -129,7 +129,7 @@ ClassicEditor
       const imageNum = imageNumber.value || 1;
       const content = editorInstance.getData();
 
-      const fullHTML = `
+ const fullHTML = `
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -158,6 +158,15 @@ ClassicEditor
   </style>
 </head>
 <body class="bg-white text-gray-800 min-h-screen p-4">
+
+  <!-- دکمه بازگشت -->
+  <div class="w-full flex justify-start px-4 mb-6">
+    <a href="../index.html" class="inline-flex items-center bg-gray-200 hover:bg-gray-300 transition px-4 py-2 rounded-full shadow-md text-sm">
+      <img src="../back.gif" alt="بازگشت" class="w-4 h-4 ml-2" />
+      بازگشت
+    </a>
+  </div>
+
   <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
     <img src="../image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-64 object-cover" />
     <div class="p-6">
@@ -170,7 +179,8 @@ ClassicEditor
   </div>
 </body>
 </html>
-      `;
+`;
+
 
       const blob = new Blob([fullHTML], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
