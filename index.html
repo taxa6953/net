@@ -93,17 +93,18 @@
     let editorInstance;
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
-    language: {
-  ui: 'fa',
-  content: 'fa'
-)
+    language:{
+        ui: 'fa',
+       content: 'fa'
+                    )  
     }
-  languageTool: {
-  languages: [
-    { title: 'فارسی', languageCode: 'fa' },
-    { title: 'English', languageCode: 'en' }
-  ]
-  }  
+          languageTool: {
+              languages: [
+              { title: 'فارسی', languageCode: 'fa' },
+              { title: 'English', languageCode: 'en' }
+              ] 
+            }
+    
         .then(editor => {
         editorInstance = editor;
         editor.model.document.on('change:data', () => {
