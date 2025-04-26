@@ -26,28 +26,16 @@
       background-color: #fff;
       border-radius: 0.5rem;
     }
-/* در <style> یا فایل CSS خود: */
-.preview-content ul {
-  list-style: disc outside;
-  margin: 1em 0 1em 1.5em;  /* فاصله بالا/پایین و تورفتگی */
-  padding: 0;
+.preview-content {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 2;
+  text-align: justify;
+  direction: rtl;
+  font-size: 1rem;
+  color: #374151; /* معادل text-gray-700 */
 }
-.preview-content ol {
-  list-style: decimal outside;
-  margin: 1em 0 1em 1.5em;
-  padding: 0;
-}
-.preview-content a {
-  color: #3b82f6;          /* رنگ آبی لینک */
-  text-decoration: underline;
-}
-.preview-content img {
-  max-width: 100%;         /* واکنش‌گرا کردن تصاویر */
-  height: auto;
-  display: block;
-  margin: 0.5em 0;
-}
-
     .download-btn {
       background-color: #4CAF50;
       color: white;
@@ -94,7 +82,7 @@
         <img id="previewImage" class="w-full h-64 object-cover border-b-2 border-gray-200" src="../image-card1.png" alt="تصویر کارت" />
         <div class="p-4">
           <h1 id="previewTitle" class="text-2xl font-bold mb-4">عنوان کارت</h1>
-          <div id="previewContent" class="prose text-gray-700 leading-loose"></div>
+          <div id="previewContent" class="preview-content text-gray-700 leading-loose"></div>
         </div>
         <footer class="text-center text-sm p-2 bg-gray-100 border-t border-gray-300">
           طراح وب‌سایت: مهندس طاها سرگزی
@@ -111,17 +99,6 @@ ClassicEditor
     language: {
       ui: 'fa',
       content: 'fa'
-    },
-    toolbar: [
-      'bold', 'italic', 'link', 'imageUpload', 'insertTable',
-      'bulletedList', 'numberedList', 'outdent', 'indent',
-      'mediaEmbed', 'horizontalLine', 'undo', 'redo'
-    ],
-    image: {
-      toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:side']
-    },
-    table: {
-      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
     }
   })
   .then(editor => {
@@ -133,7 +110,6 @@ ClassicEditor
   .catch(error => {
     console.error(error);
   });
-
 
 
     
