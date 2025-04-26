@@ -19,13 +19,42 @@
     body {
       font-family: 'Vazir', sans-serif;
     }
-    #editor {
-      min-height: 200px;
-      border: 1px solid #ccc;
-      padding: 1rem;
-      background-color: #fff;
-      border-radius: 0.5rem;
-    }
+#editor ul {
+  list-style: disc outside;
+  padding-right: 1.5rem;
+  margin: 1em 0;
+}
+#editor ol {
+  list-style: decimal outside;
+  padding-right: 1.5rem;
+  margin: 1em 0;
+}
+#editor a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+#editor img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5em 0;
+  display: block;
+}
+#editor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+#editor table,
+#editor th,
+#editor td {
+  border: 1px solid #ccc;
+}
+#editor th,
+#editor td {
+  padding: 0.5rem;
+  text-align: center;
+}
+
     .preview-content {
       white-space: normal;
       word-wrap: break-word;
