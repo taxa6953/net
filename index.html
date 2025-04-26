@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -99,6 +100,17 @@ ClassicEditor
     language: {
       ui: 'fa',
       content: 'fa'
+    },
+    toolbar: [
+      'bold', 'italic', 'link', 'imageUpload', 'insertTable',
+      'bulletedList', 'numberedList', 'outdent', 'indent',
+      'mediaEmbed', 'horizontalLine', 'undo', 'redo'
+    ],
+    image: {
+      toolbar: ['imageTextAlternative', '|', 'imageStyle:full', 'imageStyle:side']
+    },
+    table: {
+      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
     }
   })
   .then(editor => {
@@ -110,6 +122,7 @@ ClassicEditor
   .catch(error => {
     console.error(error);
   });
+
 
 
     
