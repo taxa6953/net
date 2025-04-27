@@ -247,8 +247,33 @@
         <label class="block mb-2">عنوان:</label>
         <input type="text" id="titleInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="عنوان کارت" />
 
-        <label class="block mb-2">شماره تصویر:</label>
-        <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="مثلاً: 9" min="1" />
+        <!-- تصویر -->
+<div class="mb-4">
+  <label class="block mb-2">
+    <input type="checkbox" id="useImage" class="mr-2">
+    استفاده از تصویر
+  </label>
+  <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 9" min="1" />
+</div>
+
+<!-- فیلم -->
+<div class="mb-4">
+  <label class="block mb-2">
+    <input type="checkbox" id="useVideo" class="mr-2">
+    استفاده از فیلم
+  </label>
+  <input type="number" id="videoNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 3" min="1" />
+</div>
+
+<!-- ویس -->
+<div class="mb-4">
+  <label class="block mb-2">
+    <input type="checkbox" id="useAudio" class="mr-2">
+    استفاده از ویس
+  </label>
+  <input type="number" id="audioNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 5" min="1" />
+</div>
+
 
         <label class="block mb-2">محتوا:</label>
         <div id="editor" class="mb-4"></div>
@@ -315,12 +340,37 @@
       previewImage.src = `../image-card${imageNumber.value || 1}.png`;
     });
 
-    function downloadHTML() {
-      const title = titleInput.value || 'عنوان کارت';
-      const imageNum = imageNumber.value || 1;
-      const content = editorInstance.getData();
+const useImage = document.getElementById('useImage').checked;
+const useVideo = document.getElementById('useVideo').checked;
+const useAudio = document.getElementById('useAudio').checked;
 
-      const fullHTML = `
+const imageNum = document.getElementById('imageNumber').value;
+const videoNum = document.getElementById('videoNumber').value;
+const audioNum = document.getElementById('audioNumber').value;
+
+let mediaElement = '';
+
+if (useImage && imageNum) {
+  mediaElement = `<img src="image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl" />`;
+} else if (useVideo && videoNum) {
+  mediaElement = `
+<video controls class="w-full h-full object-cover rounded-t-3xl">
+  <source src="video-card${videoNum}.mp4" type="video/mp4">
+  مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+</video>`;
+}
+// اگر هیچ کدام انتخاب نشده بود، mediaElement خالی میمونه
+
+let audioElement = '';
+
+if (useAudio && audioNum) {
+  audioElement = `
+<audio controls class="w-full mt-4">
+  <source src="voice${audioNum}.mp3" type="audio/mpeg">
+  مرورگر شما از صدا پشتیبانی نمی‌کند.
+</audio>`;
+}
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -431,6 +481,15 @@
       <div class="preview-content text-gray-700 leading-loose">
         ${content}
       </div>
+        <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
+  ${mediaElement}
+  <div class="p-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
+    <div class="preview-content text-gray-700 leading-loose">
+      ${content}
+    </div>
+    ${audioElement}
+  </div>
     </div>
     <footer>طراح وب‌سایت: مهندس طاها سرگزی</footer>
   </div>
