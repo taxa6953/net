@@ -362,7 +362,7 @@
   let audioElement = '';
   if (document.getElementById('useAudio').checked && audioNum) {
     audioElement = `
-      <audio controls class="w-full mt-4 px-6">
+        <audio controls class="block max-w-full mt-4 mx-auto">
         <source src="voice${audioNum}.mp3" type="audio/mpeg">
         مرورگر شما از صدا پشتیبانی نمی‌کند.
       </audio>`;
