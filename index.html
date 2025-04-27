@@ -368,6 +368,11 @@
         مرورگر شما از صدا پشتیبانی نمی‌کند.
       </audio>`;
   }
+  // گرفتن داده‌ی ادیتور
+  let editorData = editorInstance.getData();
+
+  // اضافه کردن target="_blank" به همه‌ی لینک‌ها در HTML خام
+  editorData = editorData.replace(/<a\s+href=/g, '<a target="_blank" href=');
 
   const fullHTML = `
         <!DOCTYPE html>
