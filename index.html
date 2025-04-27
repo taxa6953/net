@@ -14,134 +14,12 @@
   <!-- CKEditor 5 -->
   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/translations/fa.js"></script>
-<style>
-/* استایل لیست‌ها داخل ادیتور CKEditor */
-.ck-content ul {
-  list-style: disc outside;
-  padding-right: 1.5rem;
-  margin: 1em 0;
-}
-
-.ck-content ol {
-  list-style: decimal outside;
-  padding-right: 1.5rem;
-  margin: 1em 0;
-}
-
-.ck-content a {
-  color: #3b82f6;
-  text-decoration: underline;
-}
-
-.ck-content img {
-  max-width: 100%;
-  height: auto;
-  margin: 0.5em 0;
-  display: block;
-}
-
-.ck-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-.ck-content th,
-.ck-content td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  text-align: center;
-}
-.ck-content b, 
-.ck-content strong {
-  font-weight: bold;
-}
-
-.ck-content i, 
-.ck-content em {
-  font-style: italic;
-}
-
-.ck-content blockquote,
-.ck-content .indent {
-  margin-right: 2rem;
-}
-
-.ck-content .outdent {
-  margin-right: 0;
-}
-
-.ck-content figure {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.ck-content video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1rem 0;
-}
-</style>
 
   <style>
+    /* استایل‌های مختلف برای محتوا */
     body {
       font-family: 'Vazir', sans-serif;
     }
-#editor ul {
-  list-style: disc outside;
-  padding-right: 1.5rem;
-  margin: 1em 0;
-}
-#editor ol {
-  list-style: decimal outside;
-  padding-right: 1.5rem;
-  margin: 1em 0;
-}
-#editor a {
-  color: #3b82f6;
-  text-decoration: underline;
-}
-#editor img {
-  max-width: 100%;
-  height: auto;
-  margin: 0.5em 0;
-  display: block;
-}
-#editor table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-#editor table,
-#editor th,
-#editor td {
-  border: 1px solid #ccc;
-}
-#editor th,
-#editor td {
-  padding: 0.5rem;
-  text-align: center;
-}
-#editor b, 
-#editor strong {
-  font-weight: bold;
-}
-
-#editor i, 
-#editor em {
-  font-style: italic;
-}
-
-#editor blockquote,
-#editor .indent {
-  margin-right: 2rem;
-}
-
-#editor .outdent {
-  margin-right: 0;
-}
-    
     .preview-content {
       white-space: normal;
       word-wrap: break-word;
@@ -150,9 +28,8 @@
       text-align: justify;
       direction: rtl;
       font-size: 1rem;
-      color: #374151; /* معادل text-gray-700 */
+      color: #374151;
     }
-    /* اضافه شده برای نمایش درست محتوا */
     .preview-content ul {
       list-style: disc outside;
       padding-right: 1.5rem;
@@ -174,46 +51,41 @@
       display: block;
     }
     .preview-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-.preview-content th,
-.preview-content td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  text-align: center;
-}
-.preview-content b, 
-.preview-content strong {
-  font-weight: bold;
-}
-
-.preview-content i, 
-.preview-content em {
-  font-style: italic;
-}
-
-.preview-content blockquote,
-.preview-content .indent {
-  margin-right: 2rem;
-}
-
-.preview-content .outdent {
-  margin-right: 0;
-}
-
-.preview-content figure {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.preview-content video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1rem 0;
-}
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .preview-content th,
+    .preview-content td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    .preview-content b, 
+    .preview-content strong {
+      font-weight: bold;
+    }
+    .preview-content i, 
+    .preview-content em {
+      font-style: italic;
+    }
+    .preview-content blockquote,
+    .preview-content .indent {
+      margin-right: 2rem;
+    }
+    .preview-content .outdent {
+      margin-right: 0;
+    }
+    .preview-content figure {
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .preview-content video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem 0;
+    }
 
     .download-btn {
       background-color: #4CAF50;
@@ -248,32 +120,31 @@
         <input type="text" id="titleInput" class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="عنوان کارت" />
 
         <!-- تصویر -->
-<div class="mb-4">
-  <label class="block mb-2">
-    <input type="checkbox" id="useImage" class="mr-2">
-    استفاده از تصویر
-  </label>
-  <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 9" min="1" />
-</div>
+        <div class="mb-4">
+          <label class="block mb-2">
+            <input type="checkbox" id="useImage" class="mr-2">
+            استفاده از تصویر
+          </label>
+          <input type="number" id="imageNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 9" min="1" />
+        </div>
 
-<!-- فیلم -->
-<div class="mb-4">
-  <label class="block mb-2">
-    <input type="checkbox" id="useVideo" class="mr-2">
-    استفاده از فیلم
-  </label>
-  <input type="number" id="videoNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 3" min="1" />
-</div>
+        <!-- فیلم -->
+        <div class="mb-4">
+          <label class="block mb-2">
+            <input type="checkbox" id="useVideo" class="mr-2">
+            استفاده از فیلم
+          </label>
+          <input type="number" id="videoNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 3" min="1" />
+        </div>
 
-<!-- ویس -->
-<div class="mb-4">
-  <label class="block mb-2">
-    <input type="checkbox" id="useAudio" class="mr-2">
-    استفاده از ویس
-  </label>
-  <input type="number" id="audioNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 5" min="1" />
-</div>
-
+        <!-- ویس -->
+        <div class="mb-4">
+          <label class="block mb-2">
+            <input type="checkbox" id="useAudio" class="mr-2">
+            استفاده از ویس
+          </label>
+          <input type="number" id="audioNumber" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="مثلاً: 5" min="1" />
+        </div>
 
         <label class="block mb-2">محتوا:</label>
         <div id="editor" class="mb-4"></div>
@@ -329,6 +200,8 @@
 
     const titleInput = document.getElementById('titleInput');
     const imageNumber = document.getElementById('imageNumber');
+    const videoNumber = document.getElementById('videoNumber');
+    const audioNumber = document.getElementById('audioNumber');
     const previewTitle = document.getElementById('previewTitle');
     const previewImage = document.getElementById('previewImage');
 
@@ -340,163 +213,60 @@
       previewImage.src = `../image-card${imageNumber.value || 1}.png`;
     });
 
-const useImage = document.getElementById('useImage').checked;
-const useVideo = document.getElementById('useVideo').checked;
-const useAudio = document.getElementById('useAudio').checked;
+    const downloadHTML = () => {
+      const title = titleInput.value || 'عنوان کارت';
+      const imageNum = imageNumber.value;
+      const videoNum = videoNumber.value;
+      const audioNum = audioNumber.value;
+      let mediaElement = '';
 
-const imageNum = document.getElementById('imageNumber').value;
-const videoNum = document.getElementById('videoNumber').value;
-const audioNum = document.getElementById('audioNumber').value;
+      if (document.getElementById('useImage').checked && imageNum) {
+        mediaElement = `<img src="image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl" />`;
+      } else if (document.getElementById('useVideo').checked && videoNum) {
+        mediaElement = `
+          <video controls class="w-full h-full object-cover rounded-t-3xl">
+            <source src="video-card${videoNum}.mp4" type="video/mp4">
+            مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+          </video>`;
+      }
 
-let mediaElement = '';
+      let audioElement = '';
+      if (document.getElementById('useAudio').checked && audioNum) {
+        audioElement = `
+          <audio controls class="w-full mt-4">
+            <source src="voice${audioNum}.mp3" type="audio/mpeg">
+            مرورگر شما از صدا پشتیبانی نمی‌کند.
+          </audio>`;
+      }
 
-if (useImage && imageNum) {
-  mediaElement = `<img src="image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl" />`;
-} else if (useVideo && videoNum) {
-  mediaElement = `
-<video controls class="w-full h-full object-cover rounded-t-3xl">
-  <source src="video-card${videoNum}.mp4" type="video/mp4">
-  مرورگر شما از ویدیو پشتیبانی نمی‌کند.
-</video>`;
-}
-// اگر هیچ کدام انتخاب نشده بود، mediaElement خالی میمونه
-
-let audioElement = '';
-
-if (useAudio && audioNum) {
-  audioElement = `
-<audio controls class="w-full mt-4">
-  <source src="voice${audioNum}.mp3" type="audio/mpeg">
-  مرورگر شما از صدا پشتیبانی نمی‌کند.
-</audio>`;
-}
-
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${title}</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Vazir', sans-serif;
-    }
-    .preview-content {
-      white-space: normal;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      line-height: 2;
-      text-align: justify;
-      direction: rtl;
-      font-size: 1rem;
-      color: #374151;
-    }
-    .preview-content ul {
-      list-style: disc outside;
-      padding-right: 1.5rem;
-      margin: 1em 0;
-    }
-    .preview-content ol {
-      list-style: decimal outside;
-      padding-right: 1.5rem;
-      margin: 1em 0;
-    }
-    .preview-content a {
-      color: #3b82f6;
-      text-decoration: underline;
-    }
-    .preview-content img {
-      max-width: 100%;
-      height: auto;
-      margin: 0.5em 0;
-      display: block;
-    }
-    .preview-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-.preview-content th,
-.preview-content td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  text-align: center;
-}
-.preview-content b, 
-.preview-content strong {
-  font-weight: bold;
-}
-
-.preview-content i, 
-.preview-content em {
-  font-style: italic;
-}
-
-.preview-content blockquote,
-.preview-content .indent {
-  margin-right: 2rem;
-}
-
-.preview-content .outdent {
-  margin-right: 0;
-}
-
-.preview-content figure {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-.preview-content video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1rem 0;
-}
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #f1f1f1;
-      margin-top: 50px;
-    }
-  </style>
-</head>
-<body class="bg-white text-gray-800 min-h-screen p-4">
-
-  <div class="w-full flex justify-start px-4 mb-6">
-    <a href="../index.html" class="inline-flex items-center bg-gray-200 hover:bg-gray-300 transition px-4 py-2 rounded-full shadow-md text-sm">
-      <img src="../back.gif" alt="بازگشت" class="w-4 h-4 ml-2" />
-      بازگشت
-    </a>
-  </div>
-
-<div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
-<div class="aspect-w-16 aspect-h-9">
-<img src="image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl" />
-</div>
-  <div class="p-6">
-      <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
-      <div class="preview-content text-gray-700 leading-loose">
-        ${content}
-      </div>
-        <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
-  ${mediaElement}
-  <div class="p-6">
-    <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
-    <div class="preview-content text-gray-700 leading-loose">
-      ${content}
-    </div>
-    ${audioElement}
-  </div>
-    </div>
-    <footer>طراح وب‌سایت: مهندس طاها سرگزی</footer>
-  </div>
-
-</body>
-</html>
-`;
+      const fullHTML = `
+        <!DOCTYPE html>
+        <html lang="fa" dir="rtl">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>${title}</title>
+          <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+          <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
+          <style>
+            /* استایل‌ها */
+          </style>
+        </head>
+        <body>
+          <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden">
+            ${mediaElement}
+            <div class="p-6">
+              <h1 class="text-2xl font-bold text-gray-900 mb-3">${title}</h1>
+              <div class="preview-content text-gray-700 leading-loose">
+                ${editorInstance.getData()}
+              </div>
+              ${audioElement}
+            </div>
+            <footer>طراح وب‌سایت: مهندس طاها سرگزی</footer>
+          </div>
+        </body>
+        </html>
+      `;
 
       const blob = new Blob([fullHTML], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
@@ -505,7 +275,7 @@ if (useAudio && audioNum) {
       a.download = `${title.replace(/\s+/g, '_')}.html`;
       a.click();
       URL.revokeObjectURL(url);
-    }
+    };
   </script>
 
 </body>
