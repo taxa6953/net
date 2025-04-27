@@ -335,32 +335,45 @@
     });
 
     const downloadHTML = () => {
-      const title = titleInput.value || 'عنوان کارت';
-      const imageNum = imageNumber.value;
-      const videoNum = videoNumber.value;
-      const audioNum = audioNumber.value;
-      let mediaElement = '';
+  const title = titleInput.value || 'عنوان کارت';
+  const imageNum = imageNumber.value;
+  const videoNum = videoNumber.value;
+  const audioNum = audioNumber.value;
+  let mediaElement = '';
 
-      if (document.getElementById('useImage').checked && imageNum) {
-        mediaElement = `<img src="image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl" />`;
-      } else if (document.getElementById('useVideo').checked && videoNum) {
-        mediaElement = `
-          <video controls class="w-full h-full object-cover rounded-t-3xl">
-            <source src="video-card${videoNum}.mp4" type="video/mp4">
-            مرورگر شما از ویدیو پشتیبانی نمی‌کند.
-          </video>`;
-      }
+  if (document.getElementById('useImage').checked && imageNum) {
+    mediaElement = `
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="image-card${imageNum}.png" alt="تصویر کارت" class="w-full h-full object-cover rounded-t-3xl" />
+      </div>`;
+  } else if (document.getElementById('useVideo').checked && videoNum) {
+    mediaElement = `
+      <div class="aspect-w-16 aspect-h-9">
+        <video controls class="w-full h-full object-cover rounded-t-3xl">
+          <source src="video-card${videoNum}.mp4" type="video/mp4">
+          مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+        </video>
+      </div>`;
+  }
 
-      let audioElement = '';
-      if (document.getElementById('useAudio').checked && audioNum) {
-        audioElement = `
-          <audio controls class="w-full mt-4">
-            <source src="voice${audioNum}.mp3" type="audio/mpeg">
-            مرورگر شما از صدا پشتیبانی نمی‌کند.
-          </audio>`;
-      }
+  let audioElement = '';
+  if (document.getElementById('useAudio').checked && audioNum) {
+    audioElement = `
+      <audio controls class="w-full mt-4 px-6">
+        <source src="voice${audioNum}.mp3" type="audio/mpeg">
+        مرورگر شما از صدا پشتیبانی نمی‌کند.
+      </audio>`;
+  }
 
-      const fullHTML = `
+  const fullHTML = `
+    <div class="bg-gray-200 rounded-3xl shadow-2xl max-w-xl mx-auto overflow-hidden p-4">
+      <h2 class="text-2xl font-bold mb-4">${title}</h2>
+      ${mediaElement}
+      ${audioElement}
+    </div>`;
+
+  // ادامه کد برای دانلود فایل fullHTML ...
+};
         <!DOCTYPE html>
         <html lang="fa" dir="rtl">
         <head>
