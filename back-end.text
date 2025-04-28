@@ -12,7 +12,7 @@
   <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
   
   <!-- CKEditor 5 -->
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+ <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/translations/fa.js"></script>
 <style>
   /* استایل لیست‌ها داخل ادیتور CKEditor */
